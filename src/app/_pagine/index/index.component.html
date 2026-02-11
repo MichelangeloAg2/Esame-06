@@ -1,0 +1,136 @@
+<!-- MODAL LOGIN -->
+
+
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Accedi</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="loginForm">
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" formControlName="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" formControlName="password">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="remember">
+                        <label class="form-check-label">Resta connesso</label>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="login()">Accedi</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SEZIONE REGISTRAZIONE -->
+
+<section class="registration-wrapper">
+
+    <div class="step-container" [style.height.px]="currentStepHeight">
+
+        <!-- STEP 1 -->
+        <div class="step-card" [ngClass]="{ 'active': currentStep === 1 }" id="step1">
+            <form [formGroup]="step1Form" (ngSubmit)="nextStep()">
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" formControlName="email">
+                    <div *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched"
+                        class="invalid-feedback">
+                        Inserisci una email valida.
+                    </div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" formControlName="terms">
+                    <label class="form-check-label">Accetta i termini</label>
+                    <div *ngIf="step1Form.get('terms')?.invalid && step1Form.get('terms')?.touched"
+                        class="invalid-feedback">
+                        È necessario accettare i termini.
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary w-100" [disabled]="step1Form.invalid" (click)="nextStep()">
+                    Prosegui
+                </button>
+            </form>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" [ngClass]="{ 'active': currentStep === 2 }" id="step2">
+            <form [formGroup]="step2Form">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Nome" formControlName="nome">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Cognome" formControlName="cognome">
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" placeholder="Indirizzo" formControlName="indirizzo">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Città" formControlName="citta">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" formControlName="paese">
+                            <option value="">Scegli...</option>
+                            <option value="Italia">Italia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="CAP" formControlName="cap">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
+                    <button type="button" class="btn btn-primary" [disabled]="step2Form.invalid"
+                        (click)="nextStep()">Avanti</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" [ngClass]="{ 'active': currentStep === 3 }" id="step3">
+            <form [formGroup]="step3Form" (ngSubmit)="register()">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" class="form-control" placeholder="Ripeti Password"
+                            formControlName="password2">
+                    </div>
+                </div>
+
+                <div *ngIf="passwordMismatch" class="text-danger mt-2">
+                    Le password non coincidono.
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
+                    <button type="submit" class="btn btn-success" [disabled]="step3Form.invalid">Registrati</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</section>

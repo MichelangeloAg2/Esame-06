@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './_pagine/home/home.component';
+import { IndexComponent } from './_pagine/index/index.component';
 import { ModificaprofiloComponent } from './_pagine/modificaprofilo/modificaprofilo.component';
 import { DatipersonaliComponent } from './_pagine/datipersonali/datipersonali.component';
 import { PaginanontrovataComponent } from './_pagine/paginanontrovata/paginanontrovata.component';
@@ -19,6 +20,7 @@ import { AdminDashboardComponent } from './_pagine/admin-dashboard/admin-dashboa
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'registrazione', component: IndexComponent },
   { path: 'home', component: HomeComponent },
 
   //------SEZIONE PROFILO------//

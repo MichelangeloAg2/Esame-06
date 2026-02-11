@@ -1,93 +1,62 @@
 <header class="bg-dark">
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarTogglerDemo01">
+
+            <!-- Toggler per mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="javascript:void(0)">
+
+                <!-- Logo -->
+                <a class="navbar-brand" [routerLink]="['/']">
                     <img src="assets/img/logocode.png" alt="Logo" width="160" class="d-inline-block align-text-top"
-                        title="Vai alla Home Page" [routerLink]="['/']">
+                        title="Vai alla Home Page">
                 </a>
+
+                <!-- Menu principale -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="javascript:void(0)"
-                            title="Vai alla pagina dei Film" [routerLink]="['/film']">Film</a>
+                        <a class="nav-link" [routerLink]="['/film']" title="Vai alla pagina dei Film">Film</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" title="Vai alla pagina delle Serie TV"
-                            [routerLink]="['/serietv']">Serie
+                        <a class="nav-link" [routerLink]="['/serietv']" title="Vai alla pagina delle Serie TV">Serie
                             TV</a>
                     </li>
-                    <li class="nav-item">
-                        <ul class="navbar-nav">
-                            <li class="d-flex dropdown">
-                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
-                                    data-bs-toggle="dropdown" title="Categorie">Categorie</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/horror']">
-                                            Horror
-                                        </a>
-                                    </li>
 
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/fantasy']">
-                                            Fantasy
-                                        </a>
-                                    </li>
+                    <!-- Dropdown Categorie -->
+                    <li class="nav-item dropdown" ngbDropdown>
+                        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="#" title="Categorie">Categorie</a>
+                        <ul class="dropdown-menu dropdown-menu-dark" ngbDropdownMenu>
+                            <li><a class="dropdown-item" [routerLink]="['/film/horror']">Horror</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/fantasy']">Fantasy</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/fantascienza']">Fantascienza</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/drammatico']">Drammatico</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/commedia']">Commedia</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/documentario']">Documentario</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/film/animazione']">Animazione</a></li>
+                        </ul>
+                    </li>
 
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/fantascienza']">
-                                            Fantascienza
-                                        </a>
-                                    </li>
+                </ul>
 
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/drammatico']">
-                                            Drammatico
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/commedia']">
-                                            Commedia
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/documentario']">
-                                            Documentario
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" [routerLink]="['/film/animazione']">
-                                            Animazione
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
+                <!-- Dropdown Profilo -->
+                <ul class="navbar-nav d-flex">
+                    <li class="nav-item dropdown" ngbDropdown>
+                        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="#" title="Profilo"
+                            style="font-size: 24px;">
+                            <fa-icon [icon]="faUser"></fa-icon> Profilo
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" ngbDropdownMenu>
+                            <li><a class="dropdown-item" [routerLink]="['/datipersonali']">Visualizza Profilo</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/']">Esci</a></li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="d-flex navbar-nav">
-                    <li class="d-flex dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            title="Profilo" style="font-size: 24px;"><fa-icon [icon]="faUser"></fa-icon> Profilo</a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#" title="Visualizza Profilo"
-                                    [routerLink]="['/datipersonali']">Visualizza Profilo</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" title="Esci da CODEX" [routerLink]="['/']">Esci</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                </ul>
-
 
             </div>
         </div>

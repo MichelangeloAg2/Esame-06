@@ -33,6 +33,7 @@ import { DashboardUtentiComponent } from './_componenti/dashboard-utenti/dashboa
 import { DashboardPagamentiComponent } from './_componenti/dashboard-pagamenti/dashboard-pagamenti.component';
 import { UtenteComponent } from './models/utente/utente.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IndexComponent } from './_pagine/index/index.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DashboardSerietvComponent,
     DashboardUtentiComponent,
     DashboardPagamentiComponent,
-    UtenteComponent
+    UtenteComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
