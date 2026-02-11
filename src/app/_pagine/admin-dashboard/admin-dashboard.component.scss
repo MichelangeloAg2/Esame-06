@@ -1,0 +1,15 @@
+.card {
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.modal-img {
+    max-height: 200px;
+    width: auto;
+    margin-bottom: 15px;
+    object-fit: contain;
+}

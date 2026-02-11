@@ -1,0 +1,32 @@
+<ng-template #serieModalContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Gestione Serie TV</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+        <button class="btn btn-success mb-3">Carica Nuova Serie TV</button>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titolo</th>
+                    <th>Stagioni</th>
+                    <th>Episodi</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Serie TV di esempio</td>
+                    <td>3</td>
+                    <td>24</td>
+                    <td>
+                        <button class="btn btn-sm btn-info">Modifica</button>
+                        <button class="btn btn-sm btn-danger">Elimina</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

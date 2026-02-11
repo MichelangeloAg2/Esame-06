@@ -1,0 +1,174 @@
+<div class="container mt-5">
+
+    <!-- PRIMA RIGA: PROFILO + ANAGRAFICA -->
+    <div class="row g-4">
+
+        <!-- PROFILO -->
+        <div class="col-12 col-lg-6">
+            <div class="card h-100 text-center">
+                <img src="https://placehold.co/500x500/png" class="card-img-top rounded-circle p-3 mx-auto"
+                    style="width: 180px" alt="Foto Profilo" />
+
+                <div class="card-body">
+                    <h5 class="card-title">Nome Utente</h5>
+                    <p class="text-muted">Ruolo</p>
+
+                    <button class="btn btn-primary w-20">
+                        Contatta
+                    </button>
+                    <hr>
+                    <button *ngIf="isAdmin()" class="btn btn-dark mt-3" routerLink="/admin-dashboard">
+                        🛠 Accedi alla Dashboard Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANAGRAFICA -->
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Dati anagrafici</h5>
+
+                    <!-- VIEW MODE -->
+                    <button *ngIf="!isEditing" class="btn btn-sm btn-outline-secondary" (click)="enableEdit()">
+                        Modifica
+                    </button>
+
+                    <!-- EDIT MODE -->
+                    <div *ngIf="isEditing">
+                        <button class="btn btn-sm btn-success me-2" (click)="save()">
+                            Salva
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="cancel()">
+                            Annulla
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <!-- VIEW -->
+                    <div *ngIf="!isEditing">
+                        <p><strong>Nome:</strong> {{ currentUser.nome }}</p>
+                        <p><strong>Cognome:</strong> {{ currentUser.cognome }}</p>
+                        <p><strong>Email:</strong> {{ currentUser.email }}</p>
+                        <p><strong>Telefono:</strong> {{ currentUser.telefono }}</p>
+                        <p><strong>Indirizzo:</strong> {{ currentUser.indirizzo }}</p>
+                        <p><strong>Città:</strong> {{ currentUser.citta }}</p>
+                        <p><strong>CAP:</strong> {{ currentUser.cap }}</p>
+                        <p><strong>Paese:</strong> {{ currentUser.paese }}</p>
+                    </div>
+
+                    <!-- EDIT -->
+                    <form *ngIf="isEditing" [formGroup]="userForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nome</label>
+                            <input type="text" class="form-control" formControlName="nome">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Cognome</label>
+                            <input type="text" class="form-control" formControlName="cognome">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" formControlName="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Telefono</label>
+                            <input type="text" class="form-control" formControlName="telefono">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Indirizzo</label>
+                            <input type="text" class="form-control" formControlName="indirizzo">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Città</label>
+                            <input type="text" class="form-control" formControlName="citta">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">CAP</label>
+                            <input type="text" class="form-control" formControlName="cap">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Paese</label>
+                            <input type="text" class="form-control" formControlName="paese">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SECONDA RIGA: PAGAMENTI (100%) -->
+    <div class="row g-4 mt-4 mb-5">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Pagamenti</h5>
+                </div>
+
+                <div class="card-body">
+                    <p>
+                        <strong>Saldo crediti:</strong>
+                        <span class="text-success">€ 120,00</span>
+                    </p>
+
+                    <hr />
+
+                    <h6>Metodi di pagamento</h6>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment" checked>
+                        <label class="form-check-label">
+                            PayPal
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment">
+                        <label class="form-check-label">
+                            Carta di credito
+                        </label>
+                    </div>
+
+                    <button class="btn btn-outline-primary mt-3">
+                        Gestisci pagamenti
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Link Utili</h5>
+                </div>
+
+                <div class="card-body">
+                    <fa-icon [icon]="faLaptop" class="me-2"></fa-icon> <strong>Gestisci i tuoi Dispositivi</strong>
+                    <hr>
+                    <fa-icon [icon]="faCalculator" class="me-2"></fa-icon> <strong>Modifica il piano</strong>
+                    <hr>
+                    <fa-icon [icon]="faUserCog" class="me-2"></fa-icon> <strong>Modifica filtro famiglia</strong>
+                    <hr>
+                    <fa-icon [icon]="faHeadset" class="me-2"></fa-icon> <strong>Supporto Tecnico</strong>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

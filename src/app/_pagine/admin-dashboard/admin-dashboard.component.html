@@ -1,0 +1,63 @@
+<div class="container mt-5">
+    <h2 class="mb-5 text-center">Pannello di Amministrazione</h2>
+
+    <div class="row g-4">
+
+        <!-- Sezione Film -->
+        <div class="col-md-6">
+            <div class="card h-100 text-center shadow-sm">
+                <img src="assets/img/gestionefilm.png" class="card-img-top modal-img" alt="Gestione Film">
+                <div class="card-body">
+                    <button class="btn btn-primary w-100" (click)="film.open(film.filmModalContent)">
+                        Gestione Film
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Serie TV -->
+        <div class="col-md-6">
+            <div class="card h-100 text-center shadow-sm">
+                <img src="assets/img/gestioneserietv.png" class="card-img-top modal-img" alt="Gestione Serie TV">
+                <div class="card-body">
+                    <button class="btn btn-primary w-100" (click)="serie.open(serie.serieModalContent)">
+                        Gestione Serie TV
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Utenti -->
+        <div class="col-md-6">
+            <div class="card h-100 text-center shadow-sm">
+                <img src="assets/img/gestioneutenti.png" class="card-img-top modal-img" alt="Gestione Utenti">
+                <div class="card-body">
+                    <button class="btn btn-primary w-100" (click)="utenti.open(utenti.utentiModalContent)">
+                        Gestione Utenti
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Pagamenti -->
+        <div class="col-md-6">
+            <div class="card h-100 text-center shadow-sm">
+                <img src="assets/img/gestionepagamenti.png" class="card-img-top modal-img" alt="Gestione Pagamenti">
+                <div class="card-body">
+                    <button class="btn btn-primary w-100" (click)="pagamenti.open(pagamenti.pagamentiModalContent)">
+                        Gestione Pagamenti
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Componenti Modali-->
+<app-dashboard-film #film></app-dashboard-film>
+<app-dashboard-serietv #serie></app-dashboard-serietv>
+<app-dashboard-utenti #utenti></app-dashboard-utenti>
+<app-dashboard-pagamenti #pagamenti></app-dashboard-pagamenti>
