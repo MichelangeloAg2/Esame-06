@@ -1,1 +1,164 @@
+<h1>Catalogo Film</h1>
+
+<section id="continua-a-vedere">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Continua a guardare</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmNonFiniti">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="film">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">La tua lista</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmListPref">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="consigli">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">I capolavori su CodeX</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmConsigliati">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="filmAnimazione">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">il catalogo film Animazione</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmAnimazione">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="filmFantasy">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Il catalogo Fantasy</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmFantasy">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <router-outlet></router-outlet>

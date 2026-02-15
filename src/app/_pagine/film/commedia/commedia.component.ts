@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilmService } from 'src/app/services/film.service';
 
 @Component({
   selector: 'app-commedia',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./commedia.component.scss']
 })
 export class CommediaComponent {
+
+  filmCommedia: any[] = [];
+  constructor(private filmService: FilmService) {
+    this.filmCommedia = this.filmService.getFilmCommedia();
+  }
 
 }

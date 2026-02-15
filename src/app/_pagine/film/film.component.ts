@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FilmService } from 'src/app/services/film.service';
+
+
 
 @Component({
   selector: 'app-film',
@@ -6,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./film.component.scss']
 })
 export class FilmComponent {
+  filmNonFiniti: any[] = [];
+  filmListPref: any[] = [];
+  filmAnimazione: any[] = [];
+  filmFantasy: any[] = [];
+  filmConsigliati: any[] = [];
+  constructor(private filmService: FilmService) {
+    this.filmAnimazione = this.filmService.getFilmAnimazione();
+    this.filmFantasy = this.filmService.getFilmFantasy();
+  }
+
 
 }

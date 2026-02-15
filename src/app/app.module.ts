@@ -34,6 +34,7 @@ import { DashboardPagamentiComponent } from './_componenti/dashboard-pagamenti/d
 import { UtenteComponent } from './models/utente/utente.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndexComponent } from './_pagine/index/index.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { IndexComponent } from './_pagine/index/index.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,98 @@
-<p>animazione works!</p>
+<h1>Anime, Film d'Animazione e molto altro!</h1>
+
+<section id="animazione">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Butta un occhio sul Giappone...</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmAnimazione">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="animazioneitaliana">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">I capolavori dell'arte Italiana</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmAnimazione">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="internazionale">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Film d'Animazione Internazionali</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmAnimazione">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

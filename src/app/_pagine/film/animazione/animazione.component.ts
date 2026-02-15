@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilmService } from 'src/app/services/film.service';
 
 @Component({
   selector: 'app-animazione',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AnimazioneComponent {
 
+  filmAnimazione: any[] = [];
+  constructor(private filmService: FilmService) {
+    this.filmAnimazione = this.filmService.getFilmAnimazione();
+  }
 }

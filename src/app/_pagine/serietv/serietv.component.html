@@ -1,1 +1,164 @@
-<p>serietv works!</p>
+<h1>Catalogo Serie Tv</h1>
+
+<section id="continua-a-vedere">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Continua a guardare</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let serie of serieNonFinite">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="serie.img" class="card-img-top" [alt]="serie.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ serie.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ serie.anno }} • {{ serie.genere }} <br>
+                        Voto: {{ serie.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="serie">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">La tua lista</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let serie of serieListPref">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="serie.img" class="card-img-top" [alt]="serie.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ serie.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ serie.anno }} • {{ serie.genere }} <br>
+                        Voto: {{ serie.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="consigli">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Serie Tv Fantasy</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let serie of serieConsigliate">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="serie.img" class="card-img-top" [alt]="serie.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ serie.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ serie.anno }} • {{ serie.genere }} <br>
+                        Voto: {{ serie.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="serieAnimazione">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Serie Tv Anime e Animazione</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let serie of serieAnimazione">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="serie.img" class="card-img-top" [alt]="serie.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ serie.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ serie.anno }} • {{ serie.genere }} <br>
+                        Voto: {{ serie.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="serieFantasy">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Serie Tv Fantascienza</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let serie of serieFantasy">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="serie.img" class="card-img-top" [alt]="serie.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ serie.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ serie.anno }} • {{ serie.genere }} <br>
+                        Voto: {{ serie.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<router-outlet></router-outlet>

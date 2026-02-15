@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilmService } from 'src/app/services/film.service';
 
 @Component({
   selector: 'app-fantasy',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class FantasyComponent {
 
+  filmFantasy: any[] = [];
+  constructor(private filmService: FilmService) {
+    this.filmFantasy = this.filmService.getFilmFantasy();
+  }
 }

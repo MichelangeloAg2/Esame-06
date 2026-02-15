@@ -30,7 +30,11 @@
 
                     <!-- Dropdown Categorie -->
                     <li class="nav-item dropdown" ngbDropdown>
-                        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="#" title="Categorie">Categorie</a>
+                        <button class="nav-link dropdown-toggle btn btn-link" ngbDropdownToggle type="button"
+                            title="Categorie">
+                            Categorie
+                        </button>
+
                         <ul class="dropdown-menu dropdown-menu-dark" ngbDropdownMenu>
                             <li><a class="dropdown-item" [routerLink]="['/film/horror']">Horror</a></li>
                             <li><a class="dropdown-item" [routerLink]="['/film/fantasy']">Fantasy</a></li>
@@ -42,15 +46,17 @@
                         </ul>
                     </li>
 
+
                 </ul>
 
                 <!-- Dropdown Profilo -->
                 <ul class="navbar-nav d-flex">
                     <li class="nav-item dropdown" ngbDropdown>
-                        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="#" title="Profilo"
-                            style="font-size: 24px;">
+                        <button class="nav-link dropdown-toggle btn btn-link" ngbDropdownToggle type="button"
+                            title="Profilo" style="font-size: 24px;">
                             <fa-icon [icon]="faUser"></fa-icon> Profilo
-                        </a>
+                        </button>
+
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" ngbDropdownMenu>
                             <li><a class="dropdown-item" [routerLink]="['/datipersonali']">Visualizza Profilo</a></li>
                             <li><a class="dropdown-item" [routerLink]="['/']">Esci</a></li>

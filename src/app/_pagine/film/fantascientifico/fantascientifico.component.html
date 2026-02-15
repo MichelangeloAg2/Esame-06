@@ -1,1 +1,98 @@
-<p>fantascientifico works!</p>
+<h1>Oltre la scienza</h1>
+
+<section id="filmsci-fi">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Salti iperspaziali</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmFantascientifico">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="sci-fy-war">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Una continua Guerra tra le stelle</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmFantascientifico">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="poesiaStellare">
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Siamo fatti della stessa sostanza delle stelle</h3>
+
+        <div class="movie-row">
+
+            <div class="movie-card" *ngFor="let film of filmFantascientifico">
+                <div class="card bg-dark text-white border-0">
+
+                    <img [src]="film.img" class="card-img-top" [alt]="film.titolo">
+
+                    <div class="card-body p-0 pt-2">
+                        <p class="card-text">{{ film.titolo }}</p>
+                    </div>
+
+                    <button class="play-btn">
+                        <i class="fa fa-play"></i>
+                        <span>Riproduci</span>
+                    </button>
+
+                    <div class="extra-info">
+                        {{ film.anno }} • {{ film.genere }} <br>
+                        Voto: {{ film.voto }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

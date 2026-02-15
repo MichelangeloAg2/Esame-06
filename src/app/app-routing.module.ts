@@ -31,24 +31,21 @@ export const routes: Routes = [
 
   //------------SEZIONE CONTENUTI-------------//
   { path: 'serietv', component: SerietvComponent },
-  {
-    path: 'film',
-    component: FilmComponent,
-    children: [
+  { path: 'film', component: FilmComponent },
+  { path: 'film/fantasy', component: FantasyComponent },
+  { path: 'film/fantascienza', component: FantascientificoComponent },
+  { path: 'film/drammatico', component: DrammaticoComponent },
+  { path: 'film/horror', component: HorrorComponent },
+  { path: 'film/commedia', component: CommediaComponent },
+  { path: 'film/documentario', component: DocumentarioComponent },
+  { path: 'film/animazione', component: AnimazioneComponent },
 
-      { path: 'fantasy', component: FantasyComponent },
-      { path: 'fantascienza', component: FantascientificoComponent },
-      { path: 'drammatico', component: DrammaticoComponent },
-      { path: 'horror', component: HorrorComponent },
-      { path: 'commedia', component: CommediaComponent },
-      { path: 'documentario', component: DocumentarioComponent },
-      { path: 'animazione', component: AnimazioneComponent },
-    ]
-  },
+
 
   //------SEZIONE PAGINA NON TROVATA------//
 
   { path: '**', component: PaginanontrovataComponent }
+
 ];
 
 @NgModule({
