@@ -1,18 +1,21 @@
-<div class="movie-card">
+<div class="movie-card" (click)="vaiAlDettaglio()">
     <div class="card bg-dark text-white border-0">
-        <img class="card-img-top">
+
+        <img [src]="getImage()" class="card-img-top">
+
         <div class="card-body p-0 pt-2">
-            <p class="card-text"></p>
+            <p class="card-text">{{ contenuto?.titolo }}</p>
         </div>
 
-        <button class="play-btn">
+        <button class="play-btn" (click)="play($event)">
             <i class="fa fa-play"></i>
             <span>Riproduci</span>
         </button>
 
         <div class="extra-info">
-            <br>
-            Voto: /5
+            {{ contenuto?.anno_uscita || contenuto?.anno_inizio }} •
+            {{ contenuto?.genere || contenuto?.categoria?.nome }} <br>
         </div>
+
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="currentUser">
 
     <!-- PRIMA RIGA: PROFILO + ANAGRAFICA -->
     <div class="row g-4">
@@ -6,50 +6,70 @@
         <!-- PROFILO -->
         <div class="col-12 col-lg-6">
             <div class="card h-100 text-center">
+
                 <img src="https://placehold.co/500x500/png" class="card-img-top rounded-circle p-3 mx-auto"
                     style="width: 180px" alt="Foto Profilo" />
 
                 <div class="card-body">
-                    <h5 class="card-title">Nome Utente</h5>
-                    <p class="text-muted">Ruolo</p>
 
-                    <button class="btn btn-primary w-20">
-                        Contatta
+                    <h5 class="card-title">
+                        {{ currentUser.nome }} {{ currentUser.cognome }}
+                    </h5>
+
+                    <p class="text-muted">
+                        {{ isAdmin() ? 'Admin' : 'Utente' }}
+                    </p>
+
+                    <button type="button" class="btn btn-primary w-20">
+                        Cambia Immagine Profilo
                     </button>
+
                     <hr>
+
                     <button *ngIf="isAdmin()" class="btn btn-dark mt-3" routerLink="/admin-dashboard">
                         🛠 Accedi alla Dashboard Admin
                     </button>
+
                 </div>
             </div>
         </div>
 
         <!-- ANAGRAFICA -->
         <div class="col-12 col-lg-6">
+
             <div class="card h-100">
+
                 <div class="card-header d-flex justify-content-between align-items-center">
+
                     <h5 class="mb-0">Dati anagrafici</h5>
 
                     <!-- VIEW MODE -->
-                    <button *ngIf="!isEditing" class="btn btn-sm btn-outline-secondary" (click)="enableEdit()">
+                    <button *ngIf="!isEditing" type="button" class="btn btn-sm btn-outline-secondary"
+                        (click)="enableEdit()">
                         Modifica
                     </button>
 
                     <!-- EDIT MODE -->
                     <div *ngIf="isEditing">
-                        <button class="btn btn-sm btn-success me-2" (click)="save()">
+
+                        <button type="button" class="btn btn-sm btn-success me-2" (click)="save()"
+                            [disabled]="userForm.invalid">
                             Salva
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" (click)="cancel()">
+
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="cancel()">
                             Annulla
                         </button>
+
                     </div>
+
                 </div>
 
                 <div class="card-body">
 
                     <!-- VIEW -->
                     <div *ngIf="!isEditing">
+
                         <p><strong>Nome:</strong> {{ currentUser.nome }}</p>
                         <p><strong>Cognome:</strong> {{ currentUser.cognome }}</p>
                         <p><strong>Email:</strong> {{ currentUser.email }}</p>
@@ -58,10 +78,12 @@
                         <p><strong>Città:</strong> {{ currentUser.citta }}</p>
                         <p><strong>CAP:</strong> {{ currentUser.cap }}</p>
                         <p><strong>Paese:</strong> {{ currentUser.paese }}</p>
+
                     </div>
 
                     <!-- EDIT -->
                     <form *ngIf="isEditing" [formGroup]="userForm">
+
                         <div class="mb-3">
                             <label class="form-label">Nome</label>
                             <input type="text" class="form-control" formControlName="nome">
@@ -101,6 +123,7 @@
                             <label class="form-label">Paese</label>
                             <input type="text" class="form-control" formControlName="paese">
                         </div>
+
                     </form>
 
                 </div>
@@ -109,21 +132,27 @@
 
     </div>
 
-    <!-- SECONDA RIGA: PAGAMENTI (100%) -->
+
+    <!-- SECONDA RIGA -->
     <div class="row g-4 mt-4 mb-5">
+
+        <!-- PAGAMENTI -->
         <div class="col-12 col-lg-6">
+
             <div class="card">
+
                 <div class="card-header">
                     <h5 class="mb-0">Pagamenti</h5>
                 </div>
 
                 <div class="card-body">
+
                     <p>
                         <strong>Saldo crediti:</strong>
                         <span class="text-success">€ 120,00</span>
                     </p>
 
-                    <hr />
+                    <hr>
 
                     <h6>Metodi di pagamento</h6>
 
@@ -141,34 +170,51 @@
                         </label>
                     </div>
 
-                    <button class="btn btn-outline-primary mt-3">
+                    <button type="button" class="btn btn-outline-primary mt-3">
                         Gestisci pagamenti
                     </button>
+
                 </div>
             </div>
+
         </div>
 
+
+        <!-- LINK UTILI -->
         <div class="col-12 col-lg-6">
+
             <div class="card">
+
                 <div class="card-header">
                     <h5 class="mb-0">Link Utili</h5>
                 </div>
 
                 <div class="card-body">
-                    <fa-icon [icon]="faLaptop" class="me-2"></fa-icon> <strong>Gestisci i tuoi Dispositivi</strong>
-                    <hr>
-                    <fa-icon [icon]="faCalculator" class="me-2"></fa-icon> <strong>Modifica il piano</strong>
-                    <hr>
-                    <fa-icon [icon]="faUserCog" class="me-2"></fa-icon> <strong>Modifica filtro famiglia</strong>
-                    <hr>
-                    <fa-icon [icon]="faHeadset" class="me-2"></fa-icon> <strong>Supporto Tecnico</strong>
 
+                    <fa-icon [icon]="faLaptop" class="me-2"></fa-icon>
+                    <strong>Gestisci i tuoi Dispositivi</strong>
 
+                    <hr>
 
+                    <fa-icon [icon]="faCalculator" class="me-2"></fa-icon>
+                    <strong>Modifica il piano</strong>
+
+                    <hr>
+
+                    <fa-icon [icon]="faUserCog" class="me-2"></fa-icon>
+                    <strong>Modifica filtro famiglia</strong>
+
+                    <hr>
+
+                    <fa-icon [icon]="faHeadset" class="me-2"></fa-icon>
+                    <strong>Supporto Tecnico</strong>
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
 </div>

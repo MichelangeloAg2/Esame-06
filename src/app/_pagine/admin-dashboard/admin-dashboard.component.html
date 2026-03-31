@@ -1,63 +1,684 @@
 <div class="container mt-5">
-    <h2 class="mb-5 text-center">Pannello di Amministrazione</h2>
 
-    <div class="row g-4">
+    <h2 class="text-center mb-4">Pannello Admin</h2>
 
-        <!-- Sezione Film -->
-        <div class="col-md-6">
-            <div class="card h-100 text-center shadow-sm">
-                <img src="assets/img/gestionefilm.png" class="card-img-top modal-img" alt="Gestione Film">
-                <div class="card-body">
-                    <button class="btn btn-primary w-100" (click)="film.open(film.filmModalContent)">
-                        Gestione Film
-                    </button>
-                </div>
-            </div>
+    <!-- RIQUADRI -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3" (click)="cambiaSezione('film')">
+            <div class="card p-3 shadow-sm clickable">Gestione Film</div>
         </div>
 
-        <!-- Sezione Serie TV -->
-        <div class="col-md-6">
-            <div class="card h-100 text-center shadow-sm">
-                <img src="assets/img/gestioneserietv.png" class="card-img-top modal-img" alt="Gestione Serie TV">
-                <div class="card-body">
-                    <button class="btn btn-primary w-100" (click)="serie.open(serie.serieModalContent)">
-                        Gestione Serie TV
-                    </button>
-                </div>
-            </div>
+        <div class="col-md-3" (click)="cambiaSezione('serie')">
+            <div class="card p-3 shadow-sm clickable">Serie TV</div>
         </div>
 
-        <!-- Sezione Utenti -->
-        <div class="col-md-6">
-            <div class="card h-100 text-center shadow-sm">
-                <img src="assets/img/gestioneutenti.png" class="card-img-top modal-img" alt="Gestione Utenti">
-                <div class="card-body">
-                    <button class="btn btn-primary w-100" (click)="utenti.open(utenti.utentiModalContent)">
-                        Gestione Utenti
-                    </button>
-                </div>
-            </div>
+        <div class="col-md-3" (click)="cambiaSezione('utenti')">
+            <div class="card p-3 shadow-sm clickable">Utenti</div>
         </div>
 
-        <!-- Sezione Pagamenti -->
-        <div class="col-md-6">
-            <div class="card h-100 text-center shadow-sm">
-                <img src="assets/img/gestionepagamenti.png" class="card-img-top modal-img" alt="Gestione Pagamenti">
-                <div class="card-body">
-                    <button class="btn btn-primary w-100" (click)="pagamenti.open(pagamenti.pagamentiModalContent)">
-                        Gestione Pagamenti
-                    </button>
-                </div>
+        <div class="col-md-3" (click)="cambiaSezione('pagamenti')">
+            <div class="card p-3 shadow-sm clickable">Pagamenti</div>
+        </div>
+
+        <div class="col-md-12 mt-4 d-flex justify-content-center">
+
+            <div class="card p-3 shadow-sm clickable text-center home-card" style="width: 250px;"
+                (click)="cambiaSezione('home')">
+
+                <h5 class="m-0">Homepage</h5>
+
             </div>
+
         </div>
 
     </div>
+
+    <!-- ================= FILM ================= -->
+
+    <div *ngIf="sezioneAttiva === 'film'" class="card p-4 shadow-sm">
+
+        <h4 class="mb-3">Gestione Film</h4>
+
+        <div class="mb-3">
+            <button class="btn btn-primary me-2" (click)="setAzioneFilm('aggiungi')">Aggiungi</button>
+            <button class="btn btn-secondary" (click)="setAzioneFilm('lista')">Lista</button>
+        </div>
+
+        <!-- LISTA -->
+        <div *ngIf="azioneFilm === 'lista'">
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <input class="form-control" [(ngModel)]="searchFilm" placeholder="Cerca film...">
+                </div>
+
+                <div class="col-md-6">
+                    <select class="form-control" [(ngModel)]="categoriaFiltro">
+                        <option value="">Tutte le categorie</option>
+                        <option *ngFor="let c of categorie" [value]="c.id">{{ c.nome }}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div style="max-height: 400px; overflow-y: auto;">
+
+                <table class="table table-hover custom-table">
+
+                    <thead>
+                        <tr>
+                            <th>Titolo</th>
+                            <th>Categoria</th>
+                            <th>Durata</th>
+                            <th class="text-end">Azioni</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr *ngFor="let film of filmPaginati">
+                            <td>{{ film.titolo }}</td>
+                            <td>{{ film.categoria?.nome }}</td>
+                            <td>{{ film.durata }} min</td>
+
+                            <td class="text-end">
+                                <button class="btn btn-warning btn-sm me-2"
+                                    (click)="apriModificaFilm(film)">Modifica</button>
+                                <button class="btn btn-danger btn-sm" (click)="eliminaFilm(film.id)">Elimina</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="d-flex justify-content-center mt-3">
+
+                    <button *ngFor="let p of pagineFilm" class="btn btn-sm mx-1" [class.btn-primary]="paginaFilm === p"
+                        [class.btn-outline-primary]="paginaFilm !== p" (click)="paginaFilm = p">
+
+                        {{ p }}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MODIFICA -->
+        <div *ngIf="azioneFilm === 'modifica'">
+
+            <h5 class="mb-3">Modifica Film</h5>
+
+            <label>Titolo</label>
+            <input class="form-control mb-2" [(ngModel)]="filmSelezionato.titolo">
+
+            <label>Interpreti</label>
+            <input class="form-control mb-2" [(ngModel)]="filmSelezionato.interpreti">
+
+            <label>Regista</label>
+            <input class="form-control mb-2" [(ngModel)]="filmSelezionato.regista">
+
+            <label>Durata</label>
+            <input class="form-control mb-2" [(ngModel)]="filmSelezionato.durata">
+
+            <label>Categoria</label>
+            <select class="form-control mb-2" [(ngModel)]="filmSelezionato.categoria_id">
+                <option *ngFor="let c of categorie" [value]="c.id">
+                    {{ c.nome }}
+                </option>
+            </select>
+
+            <label>Descrizione</label>
+            <textarea class="form-control mb-2" [(ngModel)]="filmSelezionato.descrizione"></textarea>
+
+            <label>Anno</label>
+            <input class="form-control mb-2" [(ngModel)]="filmSelezionato.anno_uscita">
+
+            <label>Locandina</label>
+            <input type="file" class="form-control mb-2" (change)="onImageChange($event)">
+
+            <label>Video</label>
+            <input type="file" class="form-control mb-2" (change)="onVideoChange($event)">
+
+            <button class="btn btn-success me-2" (click)="aggiornaFilm()">Salva</button>
+            <button class="btn btn-secondary" (click)="setAzioneFilm('lista')">Annulla</button>
+
+        </div>
+
+        <!-- AGGIUNGI -->
+        <div *ngIf="azioneFilm === 'aggiungi'">
+
+            <label>Titolo</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoFilm.titolo">
+
+            <label>Interpreti</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoFilm.interpreti">
+
+            <label>Regista</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoFilm.regista">
+
+            <label>Durata</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoFilm.durata">
+
+            <label>Categoria</label>
+            <select class="form-control mb-2" [(ngModel)]="nuovoFilm.categoria_id">
+
+                <option value="">Seleziona categoria</option>
+
+                <option *ngFor="let c of categorie" [value]="c.id">
+                    {{ c.nome }}
+                </option>
+
+            </select>
+
+            <label>Descrizione</label>
+            <textarea class="form-control mb-2" [(ngModel)]="nuovoFilm.descrizione"></textarea>
+
+            <label>Anno</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoFilm.anno_uscita">
+
+            <label>Locandina</label>
+            <input type="file" class="form-control mb-2" (change)="onImageChange($event)">
+
+            <label>Video</label>
+            <input type="file" class="form-control mb-2" (change)="onVideoChange($event)">
+
+            <button class="btn btn-success" (click)="salvaFilm()">Salva</button>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SERIE ================= -->
+
+    <div *ngIf="sezioneAttiva === 'serie'" class="card p-4 shadow-sm">
+
+        <h4 class="mb-3">Gestione Serie TV</h4>
+
+        <div class="mb-3">
+            <button class="btn btn-primary me-2" (click)="setAzioneSerie('aggiungi')">Aggiungi</button>
+            <button class="btn btn-secondary" (click)="setAzioneSerie('lista')">Lista</button>
+        </div>
+
+        <!--AGGIUNTA NUOVA SERIE-->
+        <div *ngIf="azioneSerie === 'aggiungi'">
+
+            <h5 class="mb-3">Aggiungi Serie</h5>
+
+            <!-- SERIE -->
+
+            <label>Titolo</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovaSerie.titolo">
+
+            <label>Categoria</label>
+            <select class="form-control mb-2" [(ngModel)]="nuovaSerie.categoria_id">
+                <option value="">Seleziona categoria</option>
+                <option *ngFor="let c of categorie" [value]="c.id">
+                    {{ c.nome }}
+                </option>
+            </select>
+
+            <label>Regista</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovaSerie.regista">
+
+            <label>Interpreti</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovaSerie.interpreti">
+
+            <label>Descrizione</label>
+            <textarea class="form-control mb-2" [(ngModel)]="nuovaSerie.descrizione"></textarea>
+
+            <label>Anno inizio</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovaSerie.anno_inizio">
+
+            <label>Anno fine</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovaSerie.anno_fine">
+
+            <label>Numero stagioni</label>
+            <input type="number" class="form-control mb-3" [(ngModel)]="nuovaSerie.stagioni">
+
+            <label>Locandina</label>
+            <input type="file" class="form-control mb-2" (change)="onImageChange($event)">
+
+            <hr>
+
+            <!-- EPISODI -->
+            <h6>Episodi</h6>
+
+            <button class="btn btn-outline-primary btn-sm mb-3" (click)="aggiungiEpisodioTemp()">
+                + Aggiungi Episodio
+            </button>
+
+            <div *ngFor="let ep of episodiNuovi; let i = index" class="border p-2 mb-2">
+
+                <label>Titolo episodio</label>
+                <input class="form-control mb-1" [(ngModel)]="ep.titolo">
+
+                <label>Numero episodio</label>
+                <input class="form-control mb-1" [(ngModel)]="ep.numero_episodio">
+
+                <label>Stagione</label>
+                <input class="form-control mb-1" [(ngModel)]="ep.stagione">
+
+                <label>Descrizione</label>
+                <textarea class="form-control mb-2" [(ngModel)]="ep.descrizione"></textarea>
+
+                <button class="btn btn-danger btn-sm" (click)="rimuoviEpisodioTemp(i)">
+                    Rimuovi
+                </button>
+
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-success w-100" (click)="salvaSerie()">
+                    Salva Serie
+                </button>
+            </div>
+
+        </div>
+
+        <!-- LISTA -->
+        <div *ngIf="azioneSerie === 'lista'">
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <input class="form-control" [(ngModel)]="searchSerie" placeholder="Cerca serie...">
+                </div>
+
+                <div class="col-md-6">
+                    <select class="form-control" [(ngModel)]="categoriaFiltroSerie">
+                        <option value="">Tutte</option>
+                        <option *ngFor="let c of categorie" [value]="c.id">{{ c.nome }}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div style="max-height: 400px; overflow-y: auto;">
+
+                <table class="table table-hover custom-table">
+
+                    <thead>
+                        <tr>
+                            <th>Titolo</th>
+                            <th>Categoria</th>
+                            <th>Stagioni</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr *ngFor="let serie of seriePaginate">
+
+                            <td>{{ serie.titolo }}</td>
+                            <td>{{ serie.categoria?.nome }}</td>
+                            <td>{{ serie.stagioni }}</td>
+
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2"
+                                    (click)="apriModificaSerie(serie)">Modifica</button>
+                                <button class="btn btn-danger btn-sm" (click)="eliminaSerie(serie.id)">Elimina</button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="d-flex justify-content-center mt-3">
+
+                    <button *ngFor="let p of pagineSerie" class="btn btn-sm mx-1"
+                        [class.btn-success]="paginaSerie === p" [class.btn-outline-success]="paginaSerie !== p"
+                        (click)="paginaSerie = p">
+
+                        {{ p }}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MODIFICA -->
+        <div *ngIf="azioneSerie === 'modifica' && serieSelezionata">
+
+            <h5>Modifica Serie</h5>
+
+            <label>Titolo</label>
+            <input class="form-control mb-2" [(ngModel)]="serieSelezionata.titolo">
+
+            <label>Descrizione</label>
+            <textarea class="form-control mb-2" [(ngModel)]="serieSelezionata.descrizione"></textarea>
+
+            <label>Categoria</label>
+            <select class="form-control mb-2" [(ngModel)]="serieSelezionata.categoria_id">
+                <option *ngFor="let c of categorie" [value]="c.id">
+                    {{ c.nome }}
+                </option>
+            </select>
+
+            <label>Interpreti</label>
+            <input class="form-control mb-2" [(ngModel)]="serieSelezionata.interpreti">
+
+            <label>Regista</label>
+            <input class="form-control mb-2" [(ngModel)]="serieSelezionata.regista">
+
+            <label>Cambia Locandina</label>
+            <input type="file" class="form-control mb-2" (change)="onImageChange($event)">
+
+            <img *ngIf="imagePreview" [src]="imagePreview" class="img-fluid mb-3" style="max-height:150px">
+
+            <button class="btn btn-success mb-3" (click)="aggiornaSerie()">Salva Serie</button>
+            <hr>
+
+            <h6>Modifica Episodi</h6>
+
+            <label>Seleziona stagione</label>
+            <select class="form-control mb-3" [(ngModel)]="stagioneSelezionata">
+
+                <option *ngFor="let s of [].constructor(serieSelezionata.stagioni); let i = index" [value]="i + 1">
+                    Stagione {{ i + 1 }}
+                </option>
+
+            </select>
+
+            <div *ngFor="let ep of episodiFiltrati">
+
+                <label>Titolo episodio</label>
+                <input class="form-control mb-1" [(ngModel)]="ep.titolo">
+
+                <label>Numero episodio</label>
+                <input class="form-control mb-1" [(ngModel)]="ep.numero_episodio">
+
+                <label>Video episodio</label>
+                <input type="file" class="form-control mb-2" (change)="onVideoChange($event)">
+
+                <!-- preview -->
+                <video *ngIf="videoPreview" [src]="videoPreview" controls style="max-height:150px" class="mb-2"></video>
+
+                <button class="btn btn-success btn-sm me-2" (click)="aggiornaEpisodio(ep)">
+                    Salva
+                </button>
+
+                <button class="btn btn-danger btn-sm" (click)="eliminaEpisodio(ep.id)">
+                    Elimina
+                </button>
+
+                <hr>
+
+            </div>
+
+            <h6>Aggiungi Episodio</h6>
+
+            <label>Titolo</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoEpisodio.titolo">
+
+            <label>Numero episodio</label>
+            <input class="form-control mb-2" [(ngModel)]="nuovoEpisodio.numero_episodio">
+
+            <input type="file" class="form-control mb-2" (change)="onVideoChange($event)">
+
+            <video *ngIf="videoPreview" [src]="videoPreview" controls style="max-height:150px" class="mb-2"></video>
+
+            <button class="btn btn-primary" (click)="salvaEpisodio()">Aggiungi</button>
+
+        </div>
+
+    </div>
+
+    <!-- ================= UTENTI ================= -->
+
+    <div *ngIf="sezioneAttiva === 'utenti'">
+
+        <h4 class="mb-3">Gestione Utenti</h4>
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+                <input class="form-control" [(ngModel)]="searchUtente" placeholder="Cerca utente...">
+            </div>
+
+            <div class="col-md-6">
+                <select class="form-control" [(ngModel)]="ruoloFiltro">
+                    <option value="">Tutti i ruoli</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="mb-4" style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-hover custom-table">
+
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Ruolo</th>
+                        <th>Crediti</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let u of utentiFiltrati">
+
+                        <!-- NOME -->
+                        <td>
+                            <input *ngIf="utenteSelezionato?.idUtente === u.idUtente"
+                                [(ngModel)]="utenteSelezionato.nome" class="form-control">
+
+                            <span *ngIf="utenteSelezionato?.idUtente !== u.idUtente">
+                                {{ u.nome }} {{ u.cognome }}
+                            </span>
+                        </td>
+
+                        <!-- EMAIL -->
+                        <td>
+                            <input *ngIf="utenteSelezionato?.idUtente === u.idUtente"
+                                [(ngModel)]="utenteSelezionato.email" class="form-control">
+
+                            <span *ngIf="utenteSelezionato?.idUtente !== u.idUtente">
+                                {{ u.email }}
+                            </span>
+                        </td>
+
+                        <!-- RUOLO -->
+                        <td>
+                            <select *ngIf="utenteSelezionato?.idUtente === u.idUtente"
+                                [(ngModel)]="utenteSelezionato.ruolo" class="form-control">
+
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+
+                            <span *ngIf="utenteSelezionato?.idUtente !== u.idUtente">
+                                {{ u.ruolo }}
+                            </span>
+                        </td>
+
+                        <!-- CREDITI -->
+                        <td>
+                            <input *ngIf="utenteSelezionato?.idUtente === u.idUtente" type="number"
+                                [(ngModel)]="utenteSelezionato.crediti" class="form-control">
+
+                            <span *ngIf="utenteSelezionato?.idUtente !== u.idUtente">
+                                {{ u.crediti }}
+                            </span>
+                        </td>
+
+                        <!-- AZIONI -->
+                        <td>
+
+                            <!-- NORMAL -->
+                            <ng-container *ngIf="utenteSelezionato?.idUtente !== u.idUtente">
+
+                                <button class="btn btn-warning btn-sm me-2" (click)="selezionaUtente(u)">
+                                    Modifica
+                                </button>
+
+                                <button class="btn btn-danger btn-sm" (click)="eliminaUtente(u.idUtente)">
+                                    Elimina
+                                </button>
+
+                            </ng-container>
+
+                            <!-- EDIT MODE -->
+                            <ng-container *ngIf="utenteSelezionato?.idUtente === u.idUtente">
+
+                                <button class="btn btn-success btn-sm me-2" (click)="aggiornaUtente()">
+                                    Salva
+                                </button>
+
+                                <button class="btn btn-secondary btn-sm" (click)="annullaModificaUtente()">
+                                    Annulla
+                                </button>
+
+                            </ng-container>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <!-- ================= PAGAMENTI ================= -->
+
+    <div *ngIf="sezioneAttiva === 'pagamenti'">
+
+        <h4 class="mb-3">Gestione Pagamenti</h4>
+
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-striped table-hover">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Utente</th>
+                        <th>Importo</th>
+                        <th>Data</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let p of pagamentiList">
+
+                        <td>#{{ p.id }}</td>
+                        <td>{{ p.utente?.nome }}</td>
+                        <td><strong>{{ p.importo }}€</strong></td>
+                        <td>{{ p.created_at | date:'short' }}</td>
+
+                        <td>
+                            <button class="btn btn-sm btn-danger" (click)="eliminaPagamento(p.id)">
+                                Elimina
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <!-- ================= HOMEPAGE ================= -->
+
+    <div *ngIf="sezioneAttiva === 'home'" class="card p-4 shadow-sm">
+
+        <h4 class="mb-3">Gestione Homepage</h4>
+
+        <div class="mb-3 text-center">
+
+            <button class="btn btn-outline-violet me-2" [class.active]="tipoFiltroHome === 'tutti'"
+                (click)="tipoFiltroHome = 'tutti'">
+                Tutti
+            </button>
+
+            <button class="btn btn-outline-primary me-2" [class.active]="tipoFiltroHome === 'film'"
+                (click)="tipoFiltroHome = 'film'">
+                Film
+            </button>
+
+            <button class="btn btn-outline-success" [class.active]="tipoFiltroHome === 'serie'"
+                (click)="tipoFiltroHome = 'serie'">
+                Serie TV
+            </button>
+
+            <div class="mb-3 text-center">
+
+                <select class="form-control w-50 mx-auto" [(ngModel)]="categoriaFiltroHome">
+
+                    <option value="">Tutte le categorie</option>
+
+                    <option *ngFor="let c of categorie" [value]="c.id">
+                        {{ c.nome }}
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- CAROUSEL -->
+        <h5> Carousel</h5>
+        <div style="max-height:200px; overflow:auto;">
+            <div *ngFor="let item of contenutiFiltratiHome">
+                <label>
+                    <input type="checkbox" (change)="toggleHome(item, 'carousel')"
+                        [checked]="isSelected(item, 'carousel')">
+                    {{ item.titolo }}
+                </label>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- CONSIGLIATI -->
+        <h5> Consigliati</h5>
+        <div style="max-height:200px; overflow:auto;">
+            <div *ngFor="let item of contenutiFiltratiHome">
+                <label>
+                    <input type="checkbox" (change)="toggleHome(item, 'consigliati')"
+                        [checked]="isSelected(item, 'consigliati')">
+                    {{ item.titolo }}
+                </label>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- NUOVE USCITE -->
+        <h5> Nuove Uscite</h5>
+        <div style="max-height:200px; overflow:auto;">
+            <div *ngFor="let item of contenutiFiltratiHome">
+                <label>
+                    <input type="checkbox" (change)="toggleHome(item, 'nuove')" [checked]="isSelected(item, 'nuove')">
+                    {{ item.titolo }}
+                </label>
+            </div>
+        </div>
+
+        <button class="btn btn-success mt-3" (click)="salvaHomepage()">
+            Salva Homepage
+        </button>
+
+    </div>
+
 </div>
-
-
-
-<!-- Componenti Modali-->
-<app-dashboard-film #film></app-dashboard-film>
-<app-dashboard-serietv #serie></app-dashboard-serietv>
-<app-dashboard-utenti #utenti></app-dashboard-utenti>
-<app-dashboard-pagamenti #pagamenti></app-dashboard-pagamenti>

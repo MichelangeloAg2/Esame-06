@@ -1,136 +1,195 @@
-<!-- MODAL LOGIN -->
+<!-- SEZIONE REGISTRAZIONE -->
+<div class="page-bg" [style.background-image]="'url(' + bgUrl + ')'">
 
 
-<div class="modal fade" id="loginModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <section class="registration-wrapper">
 
-            <div class="modal-header">
-                <h5 class="modal-title">Accedi</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+        <div class="step-container" [style.height.px]="currentStepHeight">
 
-            <div class="modal-body">
-                <form [formGroup]="loginForm">
 
+            <!-- STEP 1 -->
+            <div class="step-card" [ngClass]="{ 'active': currentStep === 1 }" id="step1">
+                <div class="intestazione">
+                    <h1>Un mondo di divertimento... E chill!</h1>
+                    <p>Iscriviti subito e non perdere tutti i contenuti esclusivi per te!</p>
+                </div>
+                <form [formGroup]="step1Form" (ngSubmit)="nextStep()">
                     <div class="mb-3">
                         <label>Email</label>
                         <input type="email" class="form-control" formControlName="email">
+                        <div *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched"
+                            class="invalid-feedback">
+                            Inserisci una email valida.
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Password</label>
-                        <input type="password" class="form-control" formControlName="password">
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" formControlName="terms">
+                        <label class="form-check-label">Accetta i termini</label>
+                        <div *ngIf="step1Form.get('terms')?.invalid && step1Form.get('terms')?.touched"
+                            class="invalid-feedback">
+                            È necessario accettare i termini.
+                        </div>
                     </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" formControlName="remember">
-                        <label class="form-check-label">Resta connesso</label>
+                    <button type="button" class="btn btn-primary w-100" [disabled]="step1Form.invalid"
+                        (click)="nextStep()">
+                        Prosegui
+                    </button>
+                </form>
+            </div>
+
+            <div class="step-card" [ngClass]="{ 'active': currentStep === 2 }">
+
+                <form [formGroup]="step2Form">
+
+                    <div class="row g-3">
+
+                        <!-- NOME -->
+                        <div class="col-md-6">
+                            <label class="form-label">Nome</label>
+
+                            <input type="text" class="form-control" formControlName="nome">
+                        </div>
+
+                        <!-- COGNOME -->
+                        <div class="col-md-6">
+                            <label class="form-label">Cognome</label>
+
+                            <input type="text" class="form-control" formControlName="cognome">
+                        </div>
+
+                        <!-- DATA NASCITA -->
+                        <div class="col-md-6">
+                            <label class="form-label">Data di nascita</label>
+
+                            <input type="date" class="form-control" formControlName="data_nascita">
+                        </div>
+
+                        <!-- SESSO -->
+                        <div class="col-md-6">
+                            <label class="form-label">Sesso</label>
+
+                            <select class="form-select" formControlName="sesso">
+                                <option value="">Seleziona</option>
+                                <option value="M">Maschio</option>
+                                <option value="F">Femmina</option>
+                            </select>
+                        </div>
+
+                        <!-- COMUNE -->
+                        <div class="col-md-6 position-relative">
+
+                            <label class="form-label">Comune di nascita</label>
+
+
+                            <input type="text" class="form-control" formControlName="comune">
+
+                            <ul class="list-group position-absolute w-100" *ngIf="comuniFiltrati.length > 0"
+                                style="z-index:1000; max-height:200px; overflow:auto;">
+
+                                <li class="list-group-item" *ngFor="let c of comuniFiltrati"
+                                    (click)="selezionaComune(c)" style="cursor:pointer">
+
+                                    {{ c.nomeComune }}
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <!-- CAP -->
+                        <div class="col-md-6">
+
+                            <label class="form-label">CAP</label>
+
+
+                            <!-- INPUT -->
+                            <input *ngIf="capMultipli.length <= 1" type="text" class="form-control"
+                                formControlName="cap" readonly>
+
+                            <!-- SELECT -->
+                            <select *ngIf="capMultipli.length > 1" class="form-select" formControlName="cap">
+
+                                <option value="">Seleziona CAP</option>
+
+                                <option *ngFor="let cap of capMultipli" [value]="cap">
+                                    {{ cap }}
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- CODICE FISCALE -->
+                        <div class="col-12">
+                            <label class="form-label">Codice Fiscale</label>
+
+                            <input type="text" class="form-control" formControlName="codice_fiscale" readonly>
+                        </div>
+
+                        <!-- INDIRIZZO -->
+                        <div class="col-12">
+                            <label class="form-label">Indirizzo di Residenza</label>
+
+                            <input type="text" class="form-control" formControlName="indirizzo">
+                        </div>
+
+                        <!-- CITTA -->
+                        <div class="col-md-6">
+                            <label class="form-label">Città di Residenza</label>
+
+                            <input type="text" class="form-control" formControlName="citta">
+                        </div>
+
+                        <!-- PAESE -->
+                        <div class="col-md-6">
+                            <label class="form-label">Paese</label>
+
+                            <select class="form-select" formControlName="paese">
+                                <option value="">Seleziona</option>
+                                <option value="Italia">Italia</option>
+                            </select>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
+                        <button type="button" class="btn btn-primary" [disabled]="step2Form.invalid"
+                            (click)="nextStep()">Avanti</button>
                     </div>
 
                 </form>
             </div>
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" (click)="login()">Accedi</button>
+            <!-- STEP 3 -->
+            <div class="step-card" [ngClass]="{ 'active': currentStep === 3 }" id="step3">
+                <form [formGroup]="step3Form" (ngSubmit)="register()">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" placeholder="Password"
+                                formControlName="password">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" placeholder="Ripeti Password"
+                                formControlName="password2">
+                        </div>
+                    </div>
+
+                    <div *ngIf="passwordMismatch" class="text-danger mt-2">
+                        Le password non coincidono.
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
+                        <button type="submit" class="btn btn-success" [disabled]="step3Form.invalid">Registrati</button>
+                    </div>
+                </form>
             </div>
 
         </div>
-    </div>
-</div>
 
-<!-- SEZIONE REGISTRAZIONE -->
-
-<section class="registration-wrapper">
-
-    <div class="step-container" [style.height.px]="currentStepHeight">
-
-        <!-- STEP 1 -->
-        <div class="step-card" [ngClass]="{ 'active': currentStep === 1 }" id="step1">
-            <form [formGroup]="step1Form" (ngSubmit)="nextStep()">
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control" formControlName="email">
-                    <div *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched"
-                        class="invalid-feedback">
-                        Inserisci una email valida.
-                    </div>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" formControlName="terms">
-                    <label class="form-check-label">Accetta i termini</label>
-                    <div *ngIf="step1Form.get('terms')?.invalid && step1Form.get('terms')?.touched"
-                        class="invalid-feedback">
-                        È necessario accettare i termini.
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary w-100" [disabled]="step1Form.invalid" (click)="nextStep()">
-                    Prosegui
-                </button>
-            </form>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="step-card" [ngClass]="{ 'active': currentStep === 2 }" id="step2">
-            <form [formGroup]="step2Form">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Nome" formControlName="nome">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Cognome" formControlName="cognome">
-                    </div>
-                    <div class="col-12">
-                        <input type="text" class="form-control" placeholder="Indirizzo" formControlName="indirizzo">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Città" formControlName="citta">
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select" formControlName="paese">
-                            <option value="">Scegli...</option>
-                            <option value="Italia">Italia</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control" placeholder="CAP" formControlName="cap">
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
-                    <button type="button" class="btn btn-primary" [disabled]="step2Form.invalid"
-                        (click)="nextStep()">Avanti</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="step-card" [ngClass]="{ 'active': currentStep === 3 }" id="step3">
-            <form [formGroup]="step3Form" (ngSubmit)="register()">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <input type="password" class="form-control" placeholder="Password" formControlName="password">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="password" class="form-control" placeholder="Ripeti Password"
-                            formControlName="password2">
-                    </div>
-                </div>
-
-                <div *ngIf="passwordMismatch" class="text-danger mt-2">
-                    Le password non coincidono.
-                </div>
-
-                <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-secondary" (click)="prevStep()">Indietro</button>
-                    <button type="submit" class="btn btn-success" [disabled]="step3Form.invalid">Registrati</button>
-                </div>
-            </form>
-        </div>
-
-    </div>
-
-</section>
+    </section>

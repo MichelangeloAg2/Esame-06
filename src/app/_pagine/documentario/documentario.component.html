@@ -1,0 +1,25 @@
+<h1>Alla scoperta di mondi esplorati e non!</h1>
+
+<!--  FILM DOCUMENTARI -->
+<section>
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">DocuFilm</h3>
+
+        <div class="movie-row">
+            <app-movie-card *ngFor="let film of filmDocumentario" [contenuto]="film">
+            </app-movie-card>
+        </div>
+    </div>
+</section>
+
+<!--  SERIE DOCUMENTARI -->
+<section>
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">DocuSerie</h3>
+
+        <div class="movie-row">
+            <app-movie-card *ngFor="let serie of serieDocumentario" [contenuto]="serie">
+            </app-movie-card>
+        </div>
+    </div>
+</section>

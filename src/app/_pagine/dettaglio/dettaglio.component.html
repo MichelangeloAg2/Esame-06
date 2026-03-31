@@ -1,0 +1,137 @@
+<!-- HERO -->
+<section *ngIf="contenuto" id="immaginelocandina">
+
+    <img [src]="storageUrl + contenuto.locandina" class="locandina-bg">
+
+    <div class="overlay-gradient"></div>
+
+    <div class="content-wrapper">
+
+        <div class="textolocandina">
+
+            <h1 class="title">{{ contenuto.titolo }}</h1>
+
+            <p class="desc">{{ contenuto.descrizione }}</p>
+
+            <p class="info">Interpreti:</p>
+            <p>{{ contenuto.interpreti || 'Non disponibile'}}</p>
+
+            <p class="info">Regista:</p>
+            <p>{{ contenuto.regista }}</p>
+
+            <p class="info">Categoria:</p>
+            <p>{{ contenuto.categoria?.nome }}</p>
+
+            <p class="info">Anno:</p>
+            <p>{{ contenuto.anno_uscita || contenuto.anno_inizio }}</p>
+
+            <div class="buttons-row">
+                <button class="btn btn-primary" (click)="play()">
+                    <fa-icon [icon]="faPlay"></fa-icon> Riproduci
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SERIE - STAGIONI ================= -->
+<section *ngIf="contenuto?.stagioni">
+
+    <div class="container-fluid my-4 text-white">
+
+        <h3>Stagioni</h3>
+
+        <select class="form-control w-25 mb-3" [(ngModel)]="stagioneSelezionata">
+
+            <option *ngFor="let s of [].constructor(contenuto.stagioni); let i = index" [value]="i + 1">
+                Stagione {{ i + 1 }}
+            </option>
+
+        </select>
+
+        <!-- EPISODI -->
+        <div class="episodi-wrapper">
+            <div class="episodi-row">
+
+                <div *ngFor="let ep of episodiFiltrati" class="episodio-card" (click)="riproduciEpisodio(ep)">
+
+                    <!-- IMMAGINE (se esiste) -->
+                    <img *ngIf="ep.locandina" [src]="storageUrl + ep.locandina" class="episodio-img">
+
+                    <!-- TESTO -->
+                    <div class="episodio-info">
+
+                        <h6>
+                            Ep. {{ ep.numero_episodio }}
+                        </h6>
+
+                        <p class="titolo">
+                            {{ ep.titolo }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ================= PLAYER ================= -->
+<div *ngIf="isPlaying" class="player-container" (mousemove)="onMouseMove()">
+
+    <button class="close-btn" (click)="closePlayer()">✕</button>
+
+    <video #videoPlayer [src]="contenuto?.video ? storageUrl + contenuto.video : 'assets/video.mp4'"
+        (timeupdate)="updateTime($event)" (loadedmetadata)="setDuration($event)">
+    </video>
+
+    <!-- CONTROLLI -->
+    <div class="controls" [class.hide]="!showControls">
+
+        <button (click)="rewind()">10s</button>
+        <button (click)="togglePlay()">⏯</button>
+        <button (click)="forward()">10s</button>
+        <button (click)="toggleFullscreen()">⛶</button>
+
+        <input type="range" min="0" max="1" step="0.1" (input)="setVolume($event)">
+
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-container" (click)="seek($event)" (mousemove)="onHover($event)" (mouseleave)="leaveHover()">
+
+        <div class="progress-bar" [style.width.%]="(currentTime / duration) * 100">
+        </div>
+
+        <div *ngIf="showPreview" class="preview-time">
+            {{ formatTime(hoverTime) }}
+        </div>
+
+    </div>
+
+    <div class="time-info">
+        {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
+    </div>
+
+</div>
+
+<!-- ================= CONSIGLIATI ================= -->
+<section *ngIf="filmConsigliati.length > 0" class="consigliati">
+
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Consigliati per te</h3>
+
+        <div class="movie-row">
+            <app-movie-card *ngFor="let film of filmConsigliati" [contenuto]="film">
+            </app-movie-card>
+        </div>
+
+    </div>
+
+</section>

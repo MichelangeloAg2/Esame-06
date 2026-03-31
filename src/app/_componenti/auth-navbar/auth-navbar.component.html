@@ -1,0 +1,19 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid d-flex justify-content-between">
+
+        <!-- Logo -->
+        <img [src]="logoUrl" alt="Logo" width="160" class="d-inline-block align-text-top">
+
+        <!-- Pulsanti -->
+        <a class="btn btn-primary" [routerLink]="['/login']" routerLinkActive="d-none"
+            [routerLinkActiveOptions]="{exact:true}">
+            Accedi
+        </a>
+
+        <a class="btn btn-primary" [routerLink]="['/registrazione']" routerLinkActive="d-none"
+            [routerLinkActiveOptions]="{exact:true}">
+            Registrati
+        </a>
+
+    </div>
+</nav>

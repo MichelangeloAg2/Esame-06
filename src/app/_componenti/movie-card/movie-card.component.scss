@@ -1,0 +1,14 @@
+.movie-card {
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.movie-card {
+    min-width: 300px;
+    max-width: 300px;
+}

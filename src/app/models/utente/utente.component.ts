@@ -19,6 +19,8 @@ export interface Utente {
   citta?: string;
   cap?: string;
   paese?: string;
-  role: 'ADMIN' | 'USER';
+  ruolo: string;
+
+  crediti: number;
 }
 

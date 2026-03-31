@@ -11,9 +11,8 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
                 <!-- Logo -->
-                <a class="navbar-brand" [routerLink]="['/']">
-                    <img src="assets/img/logocode.png" alt="Logo" width="160" class="d-inline-block align-text-top"
-                        title="Vai alla Home Page">
+                <a [routerLink]="['/home']" class="navbar-brand">
+                    <img [src]="logoUrl" alt="Logo" width="160" class="d-inline-block align-text-top">
                 </a>
 
                 <!-- Menu principale -->
@@ -36,13 +35,14 @@
                         </button>
 
                         <ul class="dropdown-menu dropdown-menu-dark" ngbDropdownMenu>
-                            <li><a class="dropdown-item" [routerLink]="['/film/horror']">Horror</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/fantasy']">Fantasy</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/fantascienza']">Fantascienza</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/drammatico']">Drammatico</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/commedia']">Commedia</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/documentario']">Documentario</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/film/animazione']">Animazione</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/horror']">Horror</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/fantasy']">Fantasy</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/fantascienza']">Fantascienza</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/drammatico']">Drammatico</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/commedia']">Commedia</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/documentario']">Documentario</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/animazione']">Animazione</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/azione']">Azione</a></li>
                         </ul>
                     </li>
 
@@ -59,7 +59,9 @@
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" ngbDropdownMenu>
                             <li><a class="dropdown-item" [routerLink]="['/datipersonali']">Visualizza Profilo</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['/']">Esci</a></li>
+                            <li>
+                                <a class="dropdown-item" (click)="logout()">Esci</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

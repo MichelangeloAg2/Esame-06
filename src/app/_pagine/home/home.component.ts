@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-
+import { FilmService } from 'src/app/services/film.service';
+import { SerietvService } from 'src/app/services/serietv.service';
+import { IFilm } from 'src/app/_interfacce/ifilm';
+import { ISerie } from 'src/app/_interfacce/iserie';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,59 +11,61 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  carouselItems = [
-    {
-      img: 'assets/img/coverfilm1.png',
-      title: '"Non lasciarti catturare dal vento"',
-      text: 'Vivi l\'avventura. Senti la foresta. Sopravvivi a ciò che non conosci.'
-    },
-    {
-      img: 'assets/img/coverfilm2.png',
-      title: '"Tutti ci osservano..."',
-      text: 'In un mondo in cui non ci si può più nascondere...',
-      color: '#a16868'
-    },
-    {
-      img: 'assets/img/coverfilm3.png',
-      title: '"Il suono delle acque. Il ritmo del mondo"',
-      text: 'Scopri il mondo, attraverso i suoi suoni.'
-    }
-  ];
+  storageUrl = environment.storageUrl;
 
+  constructor(
+    private filmService: FilmService,
+    private serieService: SerietvService
+  ) { }
 
-  continueWatching = [
-    {
-      title: "L'Esploratore",
-      img: 'assets/img/poster-film1.png',
-      description: 'Viaggia in un mondo dove la sopravvivenza è tutto...'
-    },
-    {
-      title: "La Spia",
-      img: 'assets/img/poster-film2.png',
-      description: 'Nuove tecnologie ci spiano ogni giorno...'
-    },
-    {
-      title: "Il Tempio sul Fiume",
-      img: 'assets/img/posterfilm3.png',
-      description: 'Scopri i luoghi di culto del Giappone...'
-    }
-  ];
+  carousel: any[] = [];
+  continua: any[] = [];
+  consigliati: any[] = [];
+  nuoveUscite: any[] = [];
 
-  popularMovies = [
-    {
-      title: 'La Spia',
-      img: 'assets/img/poster-film2.png',
-      year: 2025,
-      genre: 'Azione',
-      rating: '4.9/5'
-    },
-    {
-      title: 'Cactus Assassini',
-      img: 'assets/img/poster-film4.png',
-      year: 2009,
-      genre: 'Horror',
-      rating: '3.9/5'
+  ngOnInit(): void {
+    this.loadHome();
+  }
+
+  loadFallback() {
+    this.filmService.getFilm().subscribe((film: IFilm[]) => {
+      this.serieService.getSerie().subscribe((serie: ISerie[]) => {
+
+        const tutti = [...film, ...serie];
+
+        this.carousel = this.shuffle(tutti).slice(0, 5);
+        this.consigliati = this.shuffle(tutti).slice(0, 10);
+        this.nuoveUscite = this.shuffle(tutti)
+          .sort((a: any, b: any) => {
+            const aAnno = a.anno_uscita || a.anno_inizio || 0;
+            const bAnno = b.anno_uscita || b.anno_inizio || 0;
+            return bAnno - aAnno;
+          })
+          .slice(0, 10);
+
+      });
+    });
+  }
+  loadHome() {
+
+    const c = localStorage.getItem('carousel');
+    const cons = localStorage.getItem('consigliati');
+    const nuove = localStorage.getItem('nuove');
+
+    console.log('LOCAL:', c, cons, nuove);
+
+    this.carousel = c ? JSON.parse(c) : [];
+    this.consigliati = cons ? JSON.parse(cons) : [];
+    this.nuoveUscite = nuove ? JSON.parse(nuove) : [];
+
+    // opzionale fallback
+    if (!this.carousel.length && !this.consigliati.length && !this.nuoveUscite.length) {
+      this.loadFallback();
     }
-  ];
+  }
+
+  shuffle(array: any[]) {
+    return array.sort(() => 0.5 - Math.random());
+  }
 
 }

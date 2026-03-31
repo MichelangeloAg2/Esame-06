@@ -1,0 +1,25 @@
+<h1>Nell'antico mondo della Magia</h1>
+
+<!--  FILM FANTASY -->
+<section>
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Epico o Moderno? L'importante è che sia bello!</h3>
+
+        <div class="movie-row">
+            <app-movie-card *ngFor="let film of filmFantasy" [contenuto]="film">
+            </app-movie-card>
+        </div>
+    </div>
+</section>
+
+<!--  SERIE FANTASY -->
+<section>
+    <div class="container-fluid my-4">
+        <h3 class="text-white mb-3">Suspance e Mostri, Streghe e Vampiri.</h3>
+
+        <div class="movie-row">
+            <app-movie-card *ngFor="let serie of serieFantasy" [contenuto]="serie">
+            </app-movie-card>
+        </div>
+    </div>
+</section>

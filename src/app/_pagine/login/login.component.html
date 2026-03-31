@@ -1,0 +1,60 @@
+<div class="page-bg" [style.background-image]="'url(' + bgUrl + ')'">
+    <div class="login-wrapper">
+
+        <!-- LOGIN -->
+        <ng-container *ngIf="!(auth | async)?.tk && !isLoggingOut">
+            <div class="form-card">
+
+                <h1>Bentornato!</h1><br>
+                <h3>Accedi a CodeX</h3>
+
+                <form [formGroup]="reactiveForm" (ngSubmit)="accedi()">
+
+                    <!-- Utente -->
+                    <div class="form-group">
+                        <label for="utente">Utente</label>
+                        <input type="text" id="utente" formControlName="utente"
+                            [ngClass]="{'is-invalid': reactiveForm.controls['utente'].invalid && reactiveForm.controls['utente'].touched}">
+
+                        <div class="error"
+                            *ngIf="reactiveForm.controls['utente'].hasError('required') && reactiveForm.controls['utente'].touched">
+                            Il campo utente è obbligatorio
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" formControlName="password"
+                            [ngClass]="{'is-invalid': reactiveForm.controls['password'].invalid && reactiveForm.controls['password'].touched}">
+
+                        <div class="error"
+                            *ngIf="reactiveForm.controls['password'].hasError('required') && reactiveForm.controls['password'].touched">
+                            Il campo password è obbligatorio
+                        </div>
+                    </div>
+
+                    <!-- Bottone -->
+                    <button type="submit" class="btn btn-primary" [disabled]="!reactiveForm.valid">
+                        Accedi
+                        <div class="spinner-border text-light" role="status" *ngIf="stoControllando">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+
+                </form>
+
+            </div>
+        </ng-container>
+
+        <!-- LOGOUT MESSAGE -->
+        <ng-container *ngIf="isLoggingOut">
+            <div class="form-card">
+                <h2>Torna presto, per una serata chill! ;)</h2>
+            </div>
+        </ng-container>
+
+
+
+    </div>
+</div>
